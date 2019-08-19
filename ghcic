@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+RED=$(echo -e '\033[91m')
+GREEN=$(echo -e '\033[92m')
+YELLOW=$(echo -e '\033[93m')
+BLUE=$(echo -e '\033[94m')
+PURPLE=$(echo -e '\033[95m')
+CYAN=$(echo -e '\033[96m')
+ESC=$(echo -e '\033[0m')
+
+arrow2="s/=>/${PURPLE}&${ESC}/g;"
+arrow="s/->/${PURPLE}&${ESC}/g;"
+bracket_left="s/\[\([^09]\)/${BLUE}[${ESC}\1/g;"
+bracket_left_double="s/\[\([^\[0-9]\)/${BLUE}[${ESC}\1/g;"
+bracket_right="s/\]/${BLUE}&${ESC}/g;"
+calc_operators="s/[+\-\/*]/${PURPLE}&${ESC}/g;"
+char="s/'\\?.'/${CYAN}&${ESC}/g;"
+error="s/error:/${RED}error${ESC}:/g;"
+double_colon="s/::/${PURPLE}&${ESC}/g;"
+interactive="s/^<[^>]*>/${YELLOW}&${ESC}/g;"
+load_done="s/done./${GREEN}&${ESC}/g;"
+load_failed="s/^Failed, modules loaded/${RED}&${ESC}/g;"
+parenthesis="s/[{}()]/${BLUE}&${ESC}/g;"
+string="s/\"[^\"]*\"/${YELLOW}&${ESC}/g;"
+fancy_quotes="s/‘[^’]*’/${CYAN}&${ESC}/g;"
+bullet="s/•/${YELLOW}&${ESC}/g;"
+line_numbers="s/([0-9]*):([0-9]*)/${BLUE}&${ESC}/g;"
+
+exec "$(command -v ghc)" --interactive ${1+"$@"} 2>&1 | \
+    sed " \
+        $arrow               \
+        $arrow2              \
+        $bracket_left        \
+        $bracket_left_double \
+        $bracket_right       \
+        $calc_operators      \
+        $char                \
+        $double_colon        \
+        $error               \
+        $interactive         \
+        $load_done           \
+        $load_failed         \
+        $parenthesis         \
+        $string              \
+        $fancy_quotes        \
+        $bullet              \
+        $line_numbers        \
+    "

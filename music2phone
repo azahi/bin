@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+MUDIR="/media/marisa/music"
+MTPDIR="/media/marisa/music2phone"
+
+for i in "$MUDIR/$1"/*
+do
+    cd "$i" || exit 1
+    mkdir -p "$MTPDIR/$(pwd | sed -e 's/\/media\/marisa\/music\///')"
+    if compgen -G ./*.mp3
+    then
+        cp -r ./*.mp3 "$MTPDIR/$(pwd | sed -e 's/\/media\/marisa\/music\///')"
+    elif compgen -G ./*.flac
+    then
+        flac2ogg
+        while [ "$(pgrep perl)" ]
+        do
+            sleep 1
+        done
+        mv ./*.ogg "$MTPDIR/$(pwd | sed -e 's/\/media\/marisa\/music\///')"
+    fi
+    cd "$MUDIR" || exit 1
+done

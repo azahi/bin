@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+for i in "$@"
+do
+    if [[ "$i" == *.bak ]]
+    then
+        cp -i -- "$i" "${i%.bak}"
+    else
+        cp -i -- "$i.bak" "$i"
+    fi
+done

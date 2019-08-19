@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ -t 1 ]
+then
+    f="%p \033[38;5;4m=>\033[m \033[38;5;9m%l\033[m\n"
+else
+    f="%p => %l\n"
+fi
+
+find "$@" -xtype l -printf "$f"

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+BG=$(xgetres background)
+FG=$(xgetres foreground)
+
+for i in {0..15}
+do
+    declare COLOR_$i="$(xgetres color$i)"
+done
+
+SEQ=
+for i in {0..15}; do
+    COLOR=COLOR_$i
+    SEQ+="\\e]4;$i;${!COLOR}\\e\\\\"
+done
+SEQ+="\\e]10;$FG\\e\\\\"
+SEQ+="\\e]11;$BG\\e\\\\"
+SEQ+="\\e]708;$BG\\e\\\\"
+SEQ+="\\e]12;$FG\\e\\\\"
+
+shopt -s extglob
+
+for i in /dev/pts/*[0-9]
+do
+    [[ -w $i ]] && \
+        printf %b "$SEQ" > "$i"
+done

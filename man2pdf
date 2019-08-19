@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+[ "$(command -v man)" ] && \
+    man -t "$1" | ps2pdf -sPAPERSIZE=a4 -sOutputFile="$1".pdf - || \
+    exit 1

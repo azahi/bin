@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+lsof -i :"${1}" | \
+    awk '{l=$2} END {print l}' | \
+    xargs kill

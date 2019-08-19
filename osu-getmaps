@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+DOWNDIR="$HOME/downloads/qutebrowser"
+SONGDIR="$HOME/.wine32/drive_c/users/free/Local Settings/Application Data/osu!/Songs"
+
+if [ -d "$DOWNDIR" ]
+then
+    if [ -d "$SONGDIR" ]
+    then
+        if (shopt -s nullglob dotglob
+            f=("$DOWNDIR"/*.osz)
+            ((! ${#f[@]})))
+        then
+            echo -e "osu-getmaps: no beatmaps found in \"$DOWNDIR\", aborting"
+            exit 1
+        else
+            for MAP in "$DOWNDIR"/*.osz
+            do
+                mv --verbose --update --force "$MAP" "$SONGDIR"
+            done
+        fi
+
+        shopt -u nullglob dotglob
+    else
+        echo -e "osu-getmaps: directory \"$SONGDIR\" does not exist, aborting"
+        exit 1
+    fi
+else
+    echo -e "osu-getmaps: directory \"$DOWNDIR\" does not exist, aborting"
+    exit 1
+fi

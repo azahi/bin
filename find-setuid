@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+_f()
+{
+    find "$@" -type f -perm /u+s,g+s -ls
+}
+
+if [ $# -gt 0 ]
+then
+    _f "$@"
+else
+    _f /usr/bin
+    _f /usr/local/bin
+    _f /bin
+    _f /usr/sbin
+    _f /usr/lib
+fi

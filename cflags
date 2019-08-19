@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+gcc -v -E -x c -march=native -mtune=native - < /dev/null 2>&1 | \
+    grep "cc1" | \
+    perl -p -e 's/^.* - //g;'

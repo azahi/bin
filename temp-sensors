@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+find /sys/devices -type f -name "temp*_input"

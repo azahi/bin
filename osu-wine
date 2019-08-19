@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+TOUCHPAD=$(xinput --list --short | \
+    awk '/TouchPad/ {printf $6}' | \
+    sed 's/id=//g')
+
+xinput --disable "$TOUCHPAD" && \
+    echo -e "osu: Touchpad disabled"
+
+if [ "$(xsetwacom --list)" ]
+then
+    STYLUS=$(xsetwacom --list | awk '/STYLUS/ {printf $7}')
+
+    MAX_X=$(xsetwacom --get "$STYLUS" area | awk '{printf $3}')
+    MAX_Y=$(xsetwacom --get "$STYLUS" area | awk '{printf $4}')
+
+    #TOP_X=0
+    #TOP_Y=0
+    #BOT_X=$(echo $MAX_X/5+$TOP_X | bc)
+    #BOT_Y=$(echo $BOT_X/1.77777778+$TOP_Y | bc)
+
+    TOP_X=$(echo "$MAX_X"/10 | bc)
+    TOP_Y=$(echo "$MAX_Y"/10 | bc)
+    BOT_X=$(echo "$MAX_X"/7+"$TOP_X" | bc)
+    BOT_Y=$(echo "$MAX_Y"/7+"$TOP_Y" | bc)
+
+    xsetwacom --set "$STYLUS" Area "$TOP_X" "$TOP_Y" "$BOT_X" "$BOT_Y"
+    xsetwacom --set "$STYLUS" Mode Absolute
+
+    echo -e "osu: Tablet input settings changed"
+else
+    echo -e "osu: No tablet found"
+fi
+
+WINEPREFIX="$HOME/.wine" \
+WINEARCH="win32" \
+WINEDEBUG="-all" \
+    wine explorer /desktop=osu,1600x900 \
+        "$HOME/.wine/drive_c/users/$USER/Local Settings/Application Data/osu!/osu!.exe" "$@"
+
+xinput --enable "$TOUCHPAD" && \
+    echo -e "osu: Touchpad enabled"
+
+[ "$(xsetwacom --list)" ] && \
+    xsetwacom --set "$STYLUS" Area 0 0 "$MAX_X" "$MAX_Y" && \
+    echo -e "osu: Tablet input settings reverted"

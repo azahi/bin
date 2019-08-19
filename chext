@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+shopt -s globstar
+
+for f in ./*."$1"
+do
+    [ -d "$f" ] && \
+        continue
+    mv -v "$f" "${f/%.$1}.$2"
+done
