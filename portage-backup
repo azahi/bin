@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-BACKUPDIR="$HOME/code/portage-config"
+BACKUPDIR="$HOME/projects/portage-config"
 
 [ ! -d "$BACKUPDIR/etc/portage" ] && \
     mkdir --parents --verbose "$BACKUPDIR/etc/portage"

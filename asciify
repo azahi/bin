@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/sh
+# shellcheck disable=SC1112
 
 sed -i \
     -e 's/[áàâä]/a/g' \

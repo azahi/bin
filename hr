@@ -1,0 +1,3 @@
+#!/bin/sh
+
+jot -b '═' -s '' "$(tput cols)"

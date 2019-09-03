@@ -1,11 +1,13 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-for i in "$@"
+for FILE in "$@"
 do
-    if [[ "$i" == *.bak ]]
-    then
-        cp -i -- "$i" "${i%.bak}"
-    else
-        cp -i -- "$i.bak" "$i"
-    fi
+    case "${FILE}" in
+        *.bak)
+            cp --interactive --verbose -- "${FILE}" "${FILE%.bak}"
+            ;;
+        *)
+            mv --verbose -- "${FILE}.bak" "${FILE}"
+            ;;
+    esac
 done
