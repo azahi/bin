@@ -11,20 +11,20 @@ if __name__ != '__main__':
     raise Exception("must be used as a main module with a parameter as the "
                     "input file")
 
-parser = argparse.ArgumentParser(description="cleanup /etc/portage/package.* "
+PARSER = argparse.ArgumentParser(description="cleanup /etc/portage/package.* "
                                              "files")
-parser.add_argument("infile", help="an input file to clean")
-parser.add_argument("--out", dest="outfile", help="the output is written to "
+PARSER.add_argument("infile", help="an input file to clean")
+PARSER.add_argument("--out", dest="outfile", help="the output is written to "
                     "this file. if not specified, the output is written to "
                     "stdout.")
-parser.add_argument("--inplace", action='store_true',
+PARSER.add_argument("--inplace", action='store_true',
                     help="overwrite the in file. if specified, --out is "
                     "ignored.")
 
-args = parser.parse_args()
+ARGS = PARSER.parse_args()
 
 
-def checkInstalled(package):
+def check_installed(package):
     with open(os.devnull, 'w') as devnull:
         status = call('qlist -IC "' + str(package.split()[0].strip()) + '"',
                       shell=True, stdout=devnull)
@@ -32,33 +32,33 @@ def checkInstalled(package):
 
 
 @contextlib.contextmanager
-def getOutFile(args):
+def get_out_file(args):
     if args.inplace:
-        fh = open(args.infile, 'w')
+        fd = open(args.infile, 'w')
     elif args.outfile is not None:
-        fh = open(args.outfile, 'w')
+        fd = open(args.outfile, 'w')
     else:
-        fh = sys.stdout
+        fd = sys.stdout
     try:
-        yield fh
+        yield fd
     finally:
-        if fh is not sys.stdout:
-            fh.close()
+        if fd is not sys.stdout:
+            fd.close()
 
 
-commentBuffer = []
-lines = []
+COMMENT_BUFFER = []
+LINES = []
 
-with open(args.infile, 'r') as f:
-    lines = f.readlines()
+with open(ARGS.infile, 'r') as f:
+    LINES = f.readlines()
 
-with getOutFile(args) as out:
-    for line in lines:
+with get_out_file(ARGS) as out:
+    for line in LINES:
         if line.lstrip().startswith("#"):
-            commentBuffer.append(line)
+            COMMENT_BUFFER.append(line)
         else:
-            if line.strip() == "" or checkInstalled(line):
-                if commentBuffer:
-                    out.write("".join(commentBuffer))
+            if line.strip() == "" or check_installed(line):
+                if COMMENT_BUFFER:
+                    out.write("".join(COMMENT_BUFFER))
                 out.write(line)
-            commentBuffer = []
+            COMMENT_BUFFER = []
