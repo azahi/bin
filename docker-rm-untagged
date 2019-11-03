@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-docker images -q -f dangling=true | \
-    xargs --no-run-if-empty --delim='\n' docker rmi
