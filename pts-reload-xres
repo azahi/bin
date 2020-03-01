@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if ! command -v xgetres > /dev/null 2>&1
+then
+    echo "error: no xgetres found."
+    exit 1
+fi
+
 BG=$(xgetres background)
 FG=$(xgetres foreground)
 
@@ -9,8 +15,9 @@ do
 done
 
 SEQ=
-for i in {0..15}; do
-    COLOR=COLOR_$i
+for i in {0..15}
+do
+    COLOR="COLOR_$i"
     SEQ+="\\e]4;$i;${!COLOR}\\e\\\\"
 done
 SEQ+="\\e]10;$FG\\e\\\\"
@@ -22,6 +29,6 @@ shopt -s extglob
 
 for i in /dev/pts/*[0-9]
 do
-    [[ -w $i ]] && \
+    [[ -w "$i" ]] && \
         printf %b "$SEQ" > "$i"
 done
