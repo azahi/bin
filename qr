@@ -1,0 +1,7 @@
+#!/bin/sh
+
+[ $# -eq 0 ] && \
+    read -r i && set "$i"
+
+echo "$*" | \
+    curl --form f:1="<-" "qrenco.de"

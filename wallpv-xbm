@@ -3,7 +3,7 @@
 COLOR_FG="$(xrdb -query | awk '/\*\.color0:/ {print $2}')"
 COLOR_BG="$(xrdb -query | awk '/\*\.color7:/ {print $2}')"
 
-for i in "${1}"/*.xbm
+for i in "$1"/*.xbm
 do
     echo "$i"
     xsetroot -bitmap "$i" \
