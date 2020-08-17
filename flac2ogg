@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # shellcheck disable=SC1083
 parallel ffmpeg -i {} -qscale:a 6 -codec:a libvorbis -vn {.}.ogg ::: ./*.flac

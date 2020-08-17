@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-while read -r p
-do
-    [ -n "$(qdepends -qQ "$p")" ] && \
-        echo "$p"
-done < "/var/lib/portage/world"

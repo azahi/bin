@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 RED=$(echo -e '\033[91m')
 GREEN=$(echo -e '\033[92m')

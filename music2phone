@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 MUDIR="/media/marisa/music"
-MTPDIR="/media/marisa/music2phone"
+MTPDIR="/media/marisa/syncthing/music"
 
 for i in "$MUDIR/$1"/*
 do

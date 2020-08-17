@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-DOWNDIR="$HOME/downloads/qutebrowser"
-SONGDIR="$HOME/.wine32/drive_c/users/free/Local Settings/Application Data/osu!/Songs"
+DOWNDIR="$HOME/downloads"
+SONGDIR="$HOME/.wine/drive_c/users/$USER/Local Settings/Application Data/osu!/Songs"
 
 if [ -d "$DOWNDIR" ]
 then

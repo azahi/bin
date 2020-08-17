@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 PIC="$HOME/pictures/wallpapers/mill-blur.png"
-SONGDIR="$HOME/.wine/drive_c/users/free/Local Settings/Application Data/osu!/Songs"
+SONGDIR="$HOME/.wine/drive_c/users/$USER/Local Settings/Application Data/osu!/Songs"
 
 [ -d "$SONGDIR/Failed" ] && \
     rm -rf "$SONGDIR/Failed"

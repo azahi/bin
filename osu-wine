@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 TOUCHPAD=$(xinput --list --short | \
     awk '/TouchPad/ {printf $6}' | \

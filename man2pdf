@@ -1,5 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-[ "$(command -v man)" ] && \
-    man -t "$1" | ps2pdf -sPAPERSIZE=a4 -sOutputFile="$1".pdf - || \
-    exit 1
+if command -v man >/dev/null 2>&1 && command -v ps2pdf >/dev/null 2>&1
+then
+    man -t "$1" | ps2pdf -sPAPERSIZE=a4 -sOutputFile="$1".pdf -
+fi

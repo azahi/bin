@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # shellcheck disable=SC1083
 parallel ffmpeg -i {} -qscale:a 0 -vn {.}.mp3 ::: ./*.flac

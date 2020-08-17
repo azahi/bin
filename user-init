@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# TODO Get rid of this.
+
+if command -v mpd >/dev/null 2>&1 && \
+    [ -f "$XDG_CONFIG_HOME/mpd/mpd.conf" ] && \
+    [ ! -f "/tmp/mpd.pid" ]
+then
+    mpd
+fi
+
+if command -v mpdscribble >/dev/null 2>&1 && \
+    [ -f "$HOME/.mpdscribble/mpdscribble.conf" ] && \
+    [ -f "/tmp/mpd.pid" ] && \
+    [ ! -f "/tmp/mpdscribble.pid" ]
+then
+    mpdscribble
+fi

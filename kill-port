@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 lsof -i :"${1}" | \
     awk '{l=$2} END {print l}' | \
