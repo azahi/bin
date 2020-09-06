@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+command -v pass >/dev/null 2>&1 || \
+    exit
+
+shopt -s nullglob globstar
+
+PREFIX="${PASSWORD_STORE_DIR-~/.password-store}"
+PASSWORD_FILES=( "$PREFIX"/**/*.gpg )
+PASSWORD_FILES=( "${PASSWORD_FILES[@]#"$PREFIX"/}" )
+PASSWORD_FILES=( "${PASSWORD_FILES[@]%.gpg}" )
+
+PASSWORD=$(printf "%s\n" "${PASSWORD_FILES[@]}" | dmenu "$@")
+
+[ -n "$PASSWORD" ] || \
+    exit
+
+pass show -c "$PASSWORD" 2>/dev/null
