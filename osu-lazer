@@ -25,7 +25,7 @@ BOT_Y=$(echo "$MAX_Y"/7+"$TOP_Y" | bc)
 xsetwacom --set "$STYLUS" Area "$TOP_X" "$TOP_Y" "$BOT_X" "$BOT_Y"
 xsetwacom --set "$STYLUS" Mode Absolute
 
-cd "${HOME}"/src/osu &&
+cd "${HOME}"/src/osu && \
     dotnet run --project osu.Desktop -c Release
 
 xsetwacom --set "$STYLUS" Area 0 0 "$MAX_X" "$MAX_Y"
