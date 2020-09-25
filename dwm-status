@@ -2,6 +2,6 @@
 
 while :
 do
-    xsetroot -name " $(date +%F\ /\ %R) "
-    sleep 1
+    xsetroot -name " $(date +%F\ /\ %R) " || exit
+    sleep 10
 done
