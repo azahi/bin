@@ -5,11 +5,9 @@ then
     curl \
         --form f:1=@"$1" \
         http://ix.io
-    exit 0
 else
     curl \
         --form f:1="<-" \
         http://ix.io
-    exit 0
 fi
-exit 1
+exit $?

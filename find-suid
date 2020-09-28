@@ -1,9 +1,9 @@
 #!/bin/bash
 
 IFS=':' read -r -a PATHS <<< "$PATH"
+
 for DIR in "${PATHS[@]}"
 do
     [ -d "$DIR" ] && \
         find "$DIR" -type f -perm /u+s,g+s -ls
 done
-unset DIR IFS

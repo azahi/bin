@@ -1,7 +1,8 @@
 #!/bin/sh
 
-[ $# -eq 0 ] && \
+if [ $# -eq 0 ]
+then
     read -r i && set "$i"
+fi
 
-echo "$*" | \
-    curl --form f:1="<-" "qrenco.de"
+echo "$*" | curl --form f:1="<-" "qrenco.de"

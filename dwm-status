@@ -1,7 +1,19 @@
 #!/bin/sh
 
+command -v xsetroot >/dev/null 2>&1 || \
+    exit
+
 while :
 do
-    xsetroot -name " $(date +%F\ /\ %R) " || exit
+    OUT=" "
+    BAT="/sys/class/power_supply/BAT0"
+    if [ "$(cat ${BAT}/present)" -eq 1 ]
+    then
+        OUT="${OUT}\`$(cat ${BAT}/capacity)%\` "
+    fi
+    OUT="${OUT}$(date +%F\ %R) "
+
+    xsetroot -name "${OUT}" || \
+        exit
     sleep 10
 done

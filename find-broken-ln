@@ -2,9 +2,9 @@
 
 if [ -t 1 ]
 then
-    PAT="%p \033[38;5;4m=>\033[m \033[38;5;9m%l\033[m\n"
+    PATTERN="%p \033[38;5;4m=>\033[m \033[38;5;9m%l\033[m\n"
 else
-    PAT="%p => %l\n"
+    PATTERN="%p => %l\n"
 fi
 
-find "$@" -xtype l -printf "$PAT"
+find "$@" -xtype l -printf "$PATTERN"
