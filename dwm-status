@@ -1,7 +1,10 @@
 #!/bin/sh
 
-command -v xsetroot >/dev/null 2>&1 || \
+if ! command -v xsetroot >/dev/null 2>&1 \
+&& ! command -v pgrep >/dev/null 2>&1
+then
     exit
+fi
 
 while :
 do
@@ -15,5 +18,6 @@ do
 
     xsetroot -name "${OUT}" || \
         exit
+
     sleep 10
 done
