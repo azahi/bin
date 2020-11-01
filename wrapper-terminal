@@ -1,7 +1,13 @@
 #!/bin/sh
 
-for i in st urxvt rxvt xterm
+for i in st urxvtc urxvt rxvt xterm
 do
+    if [ "${i}" = "urxvtc" ] \
+    && ! pgrep urxvtd >/dev/null 2>&1
+    then
+        continue
+    fi
+
     command -v "$i" >/dev/null 2>&1 && \
         exec "$i" "$@"
 done

@@ -5,14 +5,14 @@ MPDSCRIBBLE_CONF="${XDG_CONFIG_HOME}/mpdscribble.conf"
 
 if command -v mpd >/dev/null 2>&1 \
 && [ -f "${MPD_CONF}" ] \
-&& [ ! -f "/tmp/mpd.pid" ]
+&& [ ! -f "${XDG_RUNTIME_DIR}/mpd.pid" ]
 then
     mpd "${MPD_CONF}" || exit $?
 
     if command -v mpdscribble >/dev/null 2>&1 \
     && [ -f "${MPDSCRIBBLE_CONF}" ] \
-    && [ -f "/tmp/mpd.pid" ] \
-    && [ ! -f "/tmp/mpdscribble.pid" ]
+    && [ -f "${XDG_RUNTIME_DIR}/mpd.pid" ] \
+    && [ ! -f "${XDG_RUNTIME_DIR}/mpdscribble.pid" ]
     then
         mpdscribble --conf "${MPDSCRIBBLE_CONF}"
     fi
