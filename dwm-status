@@ -10,6 +10,7 @@ while :
 do
     OUT=" "
     if [ "${HOST}" != "sava" ]
+    then
         BAT="/sys/class/power_supply/BAT0"
         if [ "$(cat ${BAT}/present)" -eq 1 ]
         then
