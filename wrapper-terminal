@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for i in st urxvtc urxvt rxvt xterm
+for i in urxvtc urxvt rxvt st xterm
 do
     if [ "${i}" = "urxvtc" ] \
     && ! pgrep urxvtd >/dev/null 2>&1
