@@ -7,7 +7,7 @@ if command -v mpd >/dev/null 2>&1 \
 && [ -f "${MPD_CONF}" ] \
 && [ ! -f "${XDG_RUNTIME_DIR}/mpd.pid" ]
 then
-    mpd "${MPD_CONF}" || exit $?
+    mpd "${MPD_CONF}" || exit "$?"
 
     if command -v mpdscribble >/dev/null 2>&1 \
     && [ -f "${MPDSCRIBBLE_CONF}" ] \
