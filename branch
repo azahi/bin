@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if command -v git >/dev/null 2>&1 \
+&& [ -d .git ]
+then
+    git branch | awk '{print $2}'
+    exit $?
+fi
+
+if command -v svn >/dev/null 2>&1 \
+&& [ -d .svn ]
+then
+    svn info | \
+        awk '/^Relative URL/ {print $3}' | \
+        sed -e 's/\^\///' -e 's/^branches\///'
+    exit $?
+fi
+
+>&2 echo "error: Not a repository"
+exit 1
