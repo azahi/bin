@@ -1,7 +1,0 @@
-#!/bin/sh
-
-for i in qutebrowser firefox chromium chromium-browser
-do
-    command -v "$i" >/dev/null 2>&1 && \
-        exec "$i" "$@"
-done

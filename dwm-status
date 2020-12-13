@@ -14,7 +14,7 @@ do
         BAT="/sys/class/power_supply/BAT0"
         if [ "$(cat ${BAT}/present)" -eq 1 ]
         then
-            OUT="${OUT}\`$(cat ${BAT}/capacity)%\` "
+            OUT="${OUT}\`$(cat ${BAT}/capacity)%' "
         fi
     fi
     OUT="${OUT}$(date +%F\ %R) "
