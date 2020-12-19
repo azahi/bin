@@ -3,7 +3,8 @@
 if command -v git >/dev/null 2>&1 \
 && [ -d .git ]
 then
-    git branch | awk '{print $2}'
+    git branch | \
+        awk '{print $2}'
     exit $?
 fi
 

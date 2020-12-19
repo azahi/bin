@@ -1,15 +1,16 @@
 #!/bin/bash
 
-MUDIR="/media/marisa/music"
-MTPDIR="/media/marisa/syncthing/music"
+mudir="/media/marisa/music"
+mtpdir="/media/marisa/syncthing/music"
 
-for i in "$MUDIR/$1"/*
+for i in "${mudir}/${1}"/*
 do
-    cd "$i" || exit 1
-    mkdir -p "$MTPDIR/$(pwd | sed -e 's/\/media\/marisa\/music\///')"
+    cd "${i}" || exit 1
+    name="$(pwd | sed -e 's/\/media\/marisa\/music\///')"
+    mkdir -p "${mtpdir}/${target}"
     if compgen -G ./*.mp3
     then
-        cp -r ./*.mp3 "$MTPDIR/$(pwd | sed -e 's/\/media\/marisa\/music\///')"
+        cp -r ./*.mp3 "${mtpdir}/${target}"
     elif compgen -G ./*.flac
     then
         flac2ogg
@@ -17,7 +18,7 @@ do
         do
             sleep 1
         done
-        mv ./*.ogg "$MTPDIR/$(pwd | sed -e 's/\/media\/marisa\/music\///')"
+        mv ./*.ogg "${mtpdir}/${target}"
     fi
-    cd "$MUDIR" || exit 1
+    cd "${mudir}" || exit 1
 done

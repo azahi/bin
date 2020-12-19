@@ -1,9 +1,9 @@
 #!/bin/bash
 
-IFS=':' read -r -a PATHS <<< "$PATH"
+IFS=':' read -r -a paths <<< "${PATH}"
 
-for DIR in "${PATHS[@]}"
+for directory in "${paths[@]}"
 do
-    [ -d "$DIR" ] && \
-        find "$DIR" -type f -perm /u+s,g+s -ls
+    [ -d "${directory}" ] && \
+        find "${directory}" -type f -perm /u+s,g+s -ls
 done

@@ -1,35 +1,35 @@
 #!/bin/bash
 
-RED=$(echo -e '\033[91m')
-GREEN=$(echo -e '\033[92m')
-YELLOW=$(echo -e '\033[93m')
-BLUE=$(echo -e '\033[94m')
-PURPLE=$(echo -e '\033[95m')
-CYAN=$(echo -e '\033[96m')
-ESC=$(echo -e '\033[0m')
+red=$(echo -e '\033[91m')
+green=$(echo -e '\033[92m')
+yellow=$(echo -e '\033[93m')
+blue=$(echo -e '\033[94m')
+purple=$(echo -e '\033[95m')
+cyan=$(echo -e '\033[96m')
+default=$(echo -e '\033[0m')
 
-arrow_two="s/=>/${PURPLE}&${ESC}/g;"
-arrow="s/->/${PURPLE}&${ESC}/g;"
-bracket_left="s/\[\([^09]\)/${BLUE}[${ESC}\1/g;"
-bracket_left_double="s/\[\([^\[0-9]\)/${BLUE}[${ESC}\1/g;"
-bracket_right="s/\]/${BLUE}&${ESC}/g;"
-bullet="s/•/${YELLOW}&${ESC}/g;"
-calc_operators="s/[+\-\/*]/${PURPLE}&${ESC}/g;"
-char="s/'\\?.'/${CYAN}&${ESC}/g;"
-double_colon="s/::/${PURPLE}&${ESC}/g;"
-error="s/error:/${RED}error${ESC}:/g;"
-fancy_quotes="s/‘[^’]*’/${CYAN}&${ESC}/g;"
-interactive="s/^<[^>]*>/${YELLOW}&${ESC}/g;"
-line_numbers="s/([0-9]*):([0-9]*)/${BLUE}&${ESC}/g;"
-load_done="s/done./${GREEN}&${ESC}/g;"
-load_failed="s/^Failed, modules loaded/${RED}&${ESC}/g;"
-parenthesis="s/[{}()]/${BLUE}&${ESC}/g;"
-string="s/\"[^\"]*\"/${YELLOW}&${ESC}/g;"
+arrow="s/->/${purple}&${default}/g;"
+arrow_double="s/=>/${purple}&${default}/g;"
+bracket_left="s/\[\([^09]\)/${blue}[${default}\1/g;"
+bracket_left_double="s/\[\([^\[0-9]\)/${blue}[${default}\1/g;"
+bracket_right="s/\]/${blue}&${default}/g;"
+bullet="s/•/${yellow}&${default}/g;"
+calc_operators="s/[+\-\/*]/${purple}&${default}/g;"
+char="s/'\\?.'/${cyan}&${default}/g;"
+double_colon="s/::/${purple}&${default}/g;"
+error="s/error:/${red}error${default}:/g;"
+fancy_quotes="s/‘[^’]*’/${cyan}&${default}/g;"
+interactive="s/^<[^>]*>/${yellow}&${default}/g;"
+line_numbers="s/([0-9]*):([0-9]*)/${blue}&${default}/g;"
+load_done="s/done./${green}&${default}/g;"
+load_failed="s/^Failed, modules loaded/${red}&${default}/g;"
+parenthesis="s/[{}()]/${blue}&${default}/g;"
+string="s/\"[^\"]*\"/${yellow}&${default}/g;"
 
 exec "$(command -v ghc)" --interactive ${1+"$@"} 2>&1 | \
     sed "                       \
         $arrow                  \
-        $arrow_two              \
+        $arrow_double           \
         $bracket_left           \
         $bracket_left_double    \
         $bracket_right          \

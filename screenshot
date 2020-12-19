@@ -1,0 +1,6 @@
+#!/bin/sh
+
+picdir="${XDG_PICTURES_DIR}/screenshots"
+pic="${picdir}/$(date +%Y-%m-%d_%H-%M-%S).png"
+
+maim --format=png --hidecursor --quality 8 "${pic}"

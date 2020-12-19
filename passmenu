@@ -5,14 +5,14 @@ if command -v pass >/dev/null 2>&1 \
 then
     shopt -s nullglob globstar
 
-    PREFIX="${PASSWORD_STORE_DIR-~/.password-store}"
-    PASSWORD_FILES=( "$PREFIX"/**/*.gpg )
-    PASSWORD_FILES=( "${PASSWORD_FILES[@]#"$PREFIX"/}" )
-    PASSWORD_FILES=( "${PASSWORD_FILES[@]%.gpg}" )
+    prefix="${PASSWORD_STORE_DIR-~/.password-store}"
+    files=( "${prefix}"/**/*.gpg )
+    files=( "${files[@]#"${prefix}"/}" )
+    files=( "${files[@]%.gpg}" )
 
-    PASSWORD=$(printf "%s\n" "${PASSWORD_FILES[@]}" | dmenu "$@")
+    password=$(printf "%s\n" "${files[@]}" | dmenu "$@")
 
-    [ -n "$PASSWORD" ] || exit
+    [ -n "${password}" ] || exit
 
-    pass show -c "$PASSWORD" 2>/dev/null
+    pass show -c "${password}" 2>/dev/null
 fi

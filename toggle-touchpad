@@ -1,0 +1,11 @@
+#!/bin/sh
+
+device=$(xinput list | grep -Eo 'TouchPad\s*id\=[0-9]{1,2}' | grep -Eo '[0-9]{1,2}')
+state=$(xinput list-props "${device}" | awk '/Device Enabled/ {print $4}')
+
+if [ "${state}" -eq 1 ]
+then
+    xinput disable "${device}"
+else
+    xinput enable "${device}"
+fi

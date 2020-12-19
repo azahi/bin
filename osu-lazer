@@ -1,31 +1,35 @@
 #!/bin/bash
 
-OSUPATH="${HOME}/src/osu"
+osudir="${HOME}/src/osu"
 
-if [ -d "${OSUPATH}" ] \
+if [ -d "${osudir}" ] \
 && command -v xsetwacom >/dev/null 2>&1 \
 && command -v dotnet >/dev/null 2>&1
 then
-    STYLUS=$(xsetwacom --list | awk '/STYLUS/ {printf $7}')
+    stylus=$(xsetwacom --list | awk '/stylus/ {printf $7}')
 
-    MAX_X=$(xsetwacom --get "$STYLUS" area | awk '{printf $3}')
-    MAX_Y=$(xsetwacom --get "$STYLUS" area | awk '{printf $4}')
+    MAX_X=$(xsetwacom --get "${stylus}" area | awk '{printf $3}')
+    MAX_Y=$(xsetwacom --get "${stylus}" area | awk '{printf $4}')
 
-    #TOP_X=0
-    #TOP_Y=0
-    #BOT_X=$(echo $MAX_X/5+$TOP_X | bc)
-    #BOT_Y=$(echo $BOT_X/1.77777778+$TOP_Y | bc)
+    #top_x=0
+    #top_y=0
+    #bot_x=$(echo ${max_x}/5+${top_x} | bc)
+    #bot_y=$(echo ${bot_x}/1.77777778+${top_y} | bc)
 
-    TOP_X=$(echo "$MAX_X/10" | bc)
-    TOP_Y=$(echo "$MAX_Y/10" | bc)
-    BOT_X=$(echo "$MAX_X/7+$TOP_X" | bc)
-    BOT_Y=$(echo "$MAX_Y/7+$TOP_Y" | bc)
+    top_x=$(echo "${max_x}/10" | bc)
+    top_y=$(echo "${max_y}/10" | bc)
+    bot_x=$(echo "${max_x}/7+${top_x}" | bc)
+    bot_y=$(echo "${max_y}/7+${top_y}" | bc)
 
-    xsetwacom --set "$STYLUS" Area "$TOP_X" "$TOP_Y" "$BOT_X" "$BOT_Y" || exit $?
-    xsetwacom --set "$STYLUS" Mode Absolute || exit $?
+    xsetwacom --set "${stylus}" Area "${top_x}" "${top_y}" "${bot_x}" "${bot_y}" || exit $?
+    xsetwacom --set "${stylus}" Mode Absolute || exit $?
 
-    cd "${OSUPATH}" && \
+    cd "${osudir}" && \
         dotnet run --project osu.Desktop --configuration Release
 
-    xsetwacom --set "$STYLUS" Area 0 0 "$MAX_X" "$MAX_Y" || exit $?
+    xsetwacom --set "${stylus}" Area 0 0 "${max_x}" "${max_y}" || exit $?
+
+    exit 0
 fi
+
+exit 1

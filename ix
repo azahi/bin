@@ -1,13 +1,13 @@
 #!/bin/sh
 
-if [ -t 0 ] && [ "$1" ]
+if [ -t 0 ] && [ "${1}" ]
 then
     curl \
-        --form f:1=@"$1" \
-        http://ix.io
+        --form "f:1=@${1}" \
+        "http://ix.io"
 else
     curl \
-        --form f:1="<-" \
-        http://ix.io
+        --form "f:1=<-" \
+        "http://ix.io"
 fi
 exit $?
