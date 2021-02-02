@@ -14,10 +14,10 @@ do
         bat="/sys/class/power_supply/BAT0"
         if [ "$(cat ${bat}/present)" -eq 1 ]
         then
-            out="${out}\`$(cat ${bat}/capacity)%' "
+            out="${out}\`$(cat ${bat}/capacity)%' | "
         fi
     fi
-    out="${out}$(date +%F\ %R) "
+    out="${out}$(date +%a\ %F\ %R) "
 
     xsetroot -name "${out}" || \
         exit
