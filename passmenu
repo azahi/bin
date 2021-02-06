@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
-if command -v pass >/dev/null 2>&1 \
-&& command -v dmenu >/dev/null 2>&1
-then
+if command -v pass >/dev/null 2>&1 &&
+    command -v dmenu >/dev/null 2>&1; then
     shopt -s nullglob globstar
 
     prefix="${PASSWORD_STORE_DIR-~/.password-store}"
-    files=( "${prefix}"/**/*.gpg )
-    files=( "${files[@]#"${prefix}"/}" )
-    files=( "${files[@]%.gpg}" )
+    files=("${prefix}"/**/*.gpg)
+    files=("${files[@]#"${prefix}"/}")
+    files=("${files[@]%.gpg}")
 
     password=$(printf "%s\n" "${files[@]}" | dmenu "$@")
 

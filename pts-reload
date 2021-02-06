@@ -1,36 +1,31 @@
 #!/bin/bash
 
-if command -v xgetres >/dev/null 2>&1
-then
+if command -v xgetres >/dev/null 2>&1; then
     declare BG FG
-    BG=$(xgetres background)
-    FG=$(xgetres foreground)
+    BG="$(xgetres background)"
+    FG="$(xgetres foreground)"
 
-    for i in {0..15}
-    do
-        declare COLOR_"$i"="$(xgetres color"$i")"
+    for i in {0..15}; do
+        declare "COLOR_${i}"="$(xgetres color"${i}")"
     done
 
     declare SEQ=
-    for i in {0..15}
-    do
-        COLOR="COLOR_$i"
-        SEQ+="\\e]4;$i;${!COLOR}\\e\\\\"
-        unset "COLOR_$i"
+    for i in {0..15}; do
+        COLOR="COLOR_${i}"
+        SEQ+="\\e]4;${i};${!COLOR}\\e\\\\"
+        unset "COLOR_${i}"
     done
-    SEQ+="\\e]10;$FG\\e\\\\"
-    SEQ+="\\e]11;$BG\\e\\\\"
-    SEQ+="\\e]708;$BG\\e\\\\"
-    SEQ+="\\e]12;$FG\\e\\\\"
+    SEQ+="\\e]10;${FG}\\e\\\\"
+    SEQ+="\\e]11;${BG}\\e\\\\"
+    SEQ+="\\e]708;${BG}\\e\\\\"
+    SEQ+="\\e]12;${FG}\\e\\\\"
     unset BG FG
 
     shopt -s extglob
 
-    for i in /dev/pts/*[0-9]
-    do
-        if [ -w "$i" ]
-        then
-            printf %b "$SEQ" > "$i"
+    for i in /dev/pts/*[0-9]; do
+        if [ -w "${i}" ]; then
+            printf %b "${SEQ}" >"${i}"
         fi
     done
     unset SEQ

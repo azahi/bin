@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ -t 0 ] && [ "${1}" ]
-then
+if [ -t 0 ] && [ "${1}" ]; then
     curl \
         --form "f:1=@${1}" \
         "http://ix.io"
@@ -10,4 +9,3 @@ else
         --form "f:1=<-" \
         "http://ix.io"
 fi
-exit $?

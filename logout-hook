@@ -1,16 +1,24 @@
 #!/bin/sh
 
-rm_existing()
-{
-    { [ -f "${1}" ] || [ -d "${1}" ] ; } && rm -rf "${1}"
+to_rm="
+    ${HOME}/.cache
+    ${HOME}/.gdb_history
+    ${HOME}/.nvimlog
+    ${HOME}/.rnd
+    ${HOME}/.viminfo
+    ${HOME}/.wget-hsts
+    ${HOME}/VideoDecodeStats
+    ${HOME}/databases-incognito
+    ${HOME}/pgadmin.log
+    ${HOME}/shared_proto_db
+"
+
+rm_existing() {
+    if [ -f "${1}" ] || [ -d "${1}" ]; then
+        rm -rf "${1}" || return
+    fi
 }
 
-rm_existing "${HOME}/.cache"
-rm_existing "${HOME}/.gdb_history"
-rm_existing "${HOME}/.nvimlog"
-rm_existing "${HOME}/.rnd"
-rm_existing "${HOME}/.wget-hsts"
-rm_existing "${HOME}/VideoDecodeStats"
-rm_existing "${HOME}/databases-incognito"
-rm_existing "${HOME}/pgadmin.log"
-rm_existing "${HOME}/shared_proto_db"
+for i in ${to_rm}; do
+    rm_existing "${i}" || exit
+done

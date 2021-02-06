@@ -1,10 +1,9 @@
 #!/bin/sh
 
-if [ -t 1 ]
-then
+if [ -t 1 ]; then
     pattern="%p \033[38;5;4m=>\033[m \033[38;5;9m%l\033[m\n"
 else
     pattern="%p => %l\n"
 fi
 
-find "$@" -xtype l -printf "${pattern}"
+find "${@}" -xtype l -printf "${pattern}"

@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ -t 0 ] && [ "${1}" ]
-then
+if [ -t 0 ] && [ "${1}" ]; then
     curl \
         --form "file=@${1}" \
         "https://0x0.st"
@@ -10,4 +9,3 @@ else
         --form "file=@-" \
         "https://0x0.st"
 fi
-exit $?

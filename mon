@@ -1,20 +1,14 @@
 #!/bin/sh
 
-if ! command -v xrandr >/dev/null 2>&1
-then
-    exit 1
+if command -v xrandr >/dev/null 2>&1; then
+    if xrandr | grep "VGA.* connected [0-9]*x[0-9]*+[0-9]*+[0-9]*" >/dev/null 2>&1; then
+        xrandr \
+            --output VGA1 --off ||
+            exit
+    else
+        xrandr \
+            --output LVDS1 --auto \
+            --output VGA1 --auto --right-of LVDS1 --rotate left ||
+            exit
+    fi
 fi
-
-if xrandr | grep "VGA.* connected [0-9]*x[0-9]*+[0-9]*+[0-9]*" >/dev/null 2>&1
-then
-    xrandr \
-        --output VGA1 --off \
-        || exit 1
-else
-    xrandr \
-        --output LVDS1 --auto \
-        --output VGA1 --auto --right-of LVDS1 --rotate left \
-        || exit 1
-fi
-
-exit 0

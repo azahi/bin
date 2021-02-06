@@ -1,5 +1,5 @@
 #!/bin/sh
 
-gcc -v -E -x c -march=native -mtune=native - < /dev/null 2>&1 \
-    | grep "cc1" \
-    | sed -e 's/^.* - //g'
+gcc -v -E -x c -march=native -mtune=native - </dev/null 2>&1 |
+    grep "cc1" |
+    sed -e 's/^.* - //g'

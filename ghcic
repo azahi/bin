@@ -1,12 +1,12 @@
 #!/bin/bash
 
-red=$(echo -e '\033[91m')
-green=$(echo -e '\033[92m')
-yellow=$(echo -e '\033[93m')
-blue=$(echo -e '\033[94m')
-purple=$(echo -e '\033[95m')
-cyan=$(echo -e '\033[96m')
-default=$(echo -e '\033[0m')
+red="$(echo -e '\033[91m')"
+green="$(echo -e '\033[92m')"
+yellow="$(echo -e '\033[93m')"
+blue="$(echo -e '\033[94m')"
+purple="$(echo -e '\033[95m')"
+cyan="$(echo -e '\033[96m')"
+default="$(echo -e '\033[0m')"
 
 arrow="s/->/${purple}&${default}/g;"
 arrow_double="s/=>/${purple}&${default}/g;"
@@ -26,7 +26,7 @@ load_failed="s/^Failed, modules loaded/${red}&${default}/g;"
 parenthesis="s/[{}()]/${blue}&${default}/g;"
 string="s/\"[^\"]*\"/${yellow}&${default}/g;"
 
-exec "$(command -v ghc)" --interactive ${1+"$@"} 2>&1 | \
+exec "$(command -v ghc)" --interactive ${1+"${@}"} 2>&1 |
     sed "                       \
         $arrow                  \
         $arrow_double           \
