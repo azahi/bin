@@ -1,7 +1,0 @@
-#!/bin/sh
-
-slock &
-
-sleep 1
-
-doas loginctl hibernate

@@ -1,8 +1,8 @@
 #!/bin/sh
 
-for container in $(docker ps -q | awk '{print $1}'); do
-    ip=$(docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" "${container}")
-    name=$(docker ps | grep "${container}" | awk '{print $NF}')
+for i in $(docker ps -q | awk '{print $1}'); do
+    ip=$(docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" "${i}")
+    name=$(docker ps | grep "${i}" | awk -v i="${i}" '/i/ {print $NF}')
 
     printf "%s\t%s\n" "${ip}" "${name}"
 done

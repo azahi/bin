@@ -2,7 +2,7 @@
 
 world="/var/lib/portage/world"
 
-[ ! -f "${world}" ] && exit 1
+[ -f "${world}" ] || exit
 
 while read -r line; do
     if [ -n "$(qdepends --quiet --query "${line}")" ]; then

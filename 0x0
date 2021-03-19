@@ -1,11 +1,12 @@
 #!/bin/sh
 
-if [ -t 0 ] && [ "${1}" ]; then
-    curl \
-        --form "file=@${1}" \
-        "https://0x0.st"
+url="https://0x0.st"
+form="file=@"
+
+if [ -t 0 -a "${1}" ]; then
+    form="${form}${1}"
 else
-    curl \
-        --form "file=@-" \
-        "https://0x0.st"
+    form="${form}-"
 fi
+
+curl --form "${form}" "${url}"

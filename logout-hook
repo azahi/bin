@@ -2,6 +2,7 @@
 
 to_rm="
     ${HOME}/.cache
+    ${HOME}/.ccls-cache
     ${HOME}/.gdb_history
     ${HOME}/.nvimlog
     ${HOME}/.rnd
@@ -14,7 +15,7 @@ to_rm="
 "
 
 rm_existing() {
-    if [ -f "${1}" ] || [ -d "${1}" ]; then
+    if [ -f "${1}" -o -d "${1}" ]; then
         rm -rf "${1}" || return
     fi
 }
