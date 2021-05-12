@@ -15,7 +15,7 @@ to_rm="
 "
 
 rm_existing() {
-    if [ -f "${1}" -o -d "${1}" ]; then
+    if [ -f "${1}" ] || [ -d "${1}" ]; then
         rm -rf "${1}" || return
     fi
 }

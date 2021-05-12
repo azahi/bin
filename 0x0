@@ -3,7 +3,7 @@
 url="https://0x0.st"
 form="file=@"
 
-if [ -t 0 -a "${1}" ]; then
+if [ -t 0 ] && [ -n "${1}" ]; then
     form="${form}${1}"
 else
     form="${form}-"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if command -v xgetres >/dev/null 2>&1; then
     declare BG FG
@@ -6,6 +6,7 @@ if command -v xgetres >/dev/null 2>&1; then
     FG="$(xgetres foreground)"
 
     for i in {0..15}; do
+        # shellcheck disable=SC2140
         declare "COLOR_${i}"="$(xgetres color"${i}")"
     done
 
