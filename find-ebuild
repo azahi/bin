@@ -1,0 +1,3 @@
+#!/bin/sh
+
+$EDITOR "$(portageq get_repo_path / gentoo)/$@"
